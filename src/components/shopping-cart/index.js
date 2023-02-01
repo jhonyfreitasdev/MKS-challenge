@@ -1,27 +1,29 @@
-import { useState } from "react"
+// import { useState } from "react"
 import { CartButton } from "../cart-button"
-import { SectionCart } from "../section-cart"
+// import { SectionCart } from "../section-cart"
 
 export const ShoppingCart = () => {
     
-    const [status, setStatus] = useState({
-        condition: false
-    })
+    // const [status, setStatus] = useState({
+    //     condition: false
+    // })
 
-    const openCart = () => {
-        setStatus({
-            condition: true
-        })
-    }
+    // const openCart = () => {
+    //     setStatus({
+    //         condition: true
+    //     })
+    // }
 
-    const closeCart = () => {
-        setStatus({
-            condition: false
-        })
-    }
+    // const closeCart = () => {
+    //     setStatus({
+    //         condition: false
+    //     })
+    // }
 
-    if (!status.condition) {
-        return <CartButton openCart={openCart} />
-    }
-    return <SectionCart closeCart={closeCart} />
+    return <CartButton /*openCart={openCart}*/ />
+
+    // if (!status.condition) {
+    //     return <CartButton openCart={openCart} />
+    // }
+    // return <SectionCart closeCart={closeCart} />
 }

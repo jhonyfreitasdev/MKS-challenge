@@ -3,6 +3,8 @@ import { getProducts } from "../../services/api-products"
 import { ShopButton } from "../shop-button"
 import { SectionCart } from "../section-cart"
 import styled from "styled-components"
+import './products-list.css'
+
 
 export const Product = () => {
     const [itemsList, setItemsList] = useState({
@@ -68,18 +70,20 @@ export const Product = () => {
     }, 0)
 
     return (
-        <>
-            <ul>
+        <Main>
+            <ul className="products-list">
                 {
                     itemsList.items.map((item, index) => {
                         return (
                             <Li key={index}>
-                                <img src={item.photo} alt={item.name} />
+                                <DivImageProduct>
+                                    <img src={item.photo} alt={item.name} />
+                                </DivImageProduct>
                                 <DivTitle>
                                     <H2>{item.name}</H2>
                                     <P>R$ {item.price}</P>
                                 </DivTitle>
-                                <p>{item.description}</p>
+                                <Description>{item.description}</Description>
                                 <ShopButton getItem={() => addProductInCart(item)} />
                             </Li>
                         )
@@ -88,82 +92,174 @@ export const Product = () => {
             </ul>
 
             <SectionCart>
-                <h2> Carrinho de compras </h2>
-                <button type="button" /*onClick={props.closeCart}*/> X </button>
+                <div>
+                    <DivHeader>
+                        <TitleCart> Carrinho de compras </TitleCart>
+                        <CloseButton type="button" /*onClick={props.closeCart}*/> X </CloseButton>
+                    </DivHeader>
 
-                <ul>
-                    {
-                        shoppingList.map((item, index) => {
-                            const newPrice = item.product.price * item.quantity
-
-                            return (
-                                <LiShopping key={index}>
-                                    <DivImg>
-                                        <img src={item.product.photo} alt={item.product.name} />
-                                    </DivImg>
-                                    <h2>{item.product.name}</h2>
-                                    <DivButton>
-                                        <MinusButton type="button" onClick={() => removeQuantity(item)}> - </MinusButton>
-                                        <p>{item.quantity}</p>
-                                        <PlusButton type="button" onClick={() => addQuantity(item)}> + </PlusButton>
-                                    </DivButton>
-                                    <p>R$ {newPrice}</p>
-
-                                    <button type="button" onClick={() => removeCartProduct(item)}> X </button>
-                                </LiShopping>
-                            )
-                        })
-                    }
-                </ul>
+                    <ul itemClass="products-list">
+                        {
+                            shoppingList.map((item, index) => {
+                                const newPrice = item.product.price * item.quantity
+                                return (
+                                    <LiShopping key={index}>
+                                        <DivImg>
+                                            <img src={item.product.photo} alt={item.product.name} />
+                                        </DivImg>
+                                        <TitleProductCart>{item.product.name}</TitleProductCart>
+                                        <DivButton>
+                                            <MinusButton type="button" onClick={() => removeQuantity(item)}> - </MinusButton>
+                                            <Quantity>{item.quantity}</Quantity>
+                                            <PlusButton type="button" onClick={() => addQuantity(item)}> + </PlusButton>
+                                        </DivButton>
+                                        <Price>R$ {newPrice}</Price>
+                                        <RemoveButton type="button" onClick={() => removeCartProduct(item)}> X </RemoveButton>
+                                    </LiShopping>
+                                )
+                            })
+                        }
+                    </ul>
+                </div>
 
                 <div>
-                    <p> Total </p>
-                    <p>R$ { totalCart } </p>
+                    <TotalDiv>
+                        <p> Total: </p>
+                        <p>R$ { totalCart } </p>
+                    </TotalDiv>
+                    <CheckoutButton type="button"> Finalizar Compra </CheckoutButton>
                 </div>
             </SectionCart>
-        </>
+        </Main>
     )
 }
 
+
+const Main = styled.div`
+    position:relative;
+`
 const Li = styled.li`
-    padding: 10px;
+    position: relative;
+    padding: 10px 10px 0 10px;
     width: 220px;
-    box-shadow: 0px 0px 10px grey;
+    height: 285px;
+    box-shadow: 0px 0px 10px lightgrey;
     border-radius: 10px;
+`
+const DivImageProduct = styled.div`
+    margin: 0 auto;
+    max-width: 130px;
 `
 const DivTitle = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
 `
 const H2 = styled.h2`
     font-size: 16px;
+    width: 53%;
 `
 const P = styled.p`
     background-color: #000000;
     color: #ffffff;
-    display: block;
-    border-radius: 5px;
-    padding: 4px;
     font-weight: 700;
     font-size: 15px;
+    padding: 4px;
+    border-radius: 5px;
+`
+const Description = styled.p`
+    color: #2c2c2c;
+    font-size: 12px;
+    font-weight: 300;
+    margin: 8px 0 14px 0;
+`
+
+
+const DivHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+`
+const TitleCart = styled.h2`
+    font-size: 27px;
+    font-weight: 700px;
+    width: 50%;
+`
+const CloseButton = styled.button`
+    display: flex;
+    align-self: flex-start;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 50%;
 `
 const LiShopping = styled.li`
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #ffffff;
+    color: #000000;
+    margin: 14px 0;
+    padding: 13px;
     width: 380px;
     height: 95px;
+    border-radius: 8px;
 `
 const DivImg = styled.div`
     width: 50px;
     height: 60px;
+`
+const TitleProductCart = styled.h2`
+    font-size: 15px;
+    font-weight: 400px;
 `
 const DivButton = styled.div`
     display: flex;
 `
 const MinusButton = styled.button`
     width: 16px;
+    border-radius: 4px 0 0 4px;
+    border: solid 1px lightgrey;
+    padding: 4px;
 `
+const Quantity = styled.p`
+    width: 16px;
+` 
 const PlusButton = styled.button`
     width: 16px;
+    border-radius: 0 4px 4px 0;
+    border: solid 1px lightgrey;
+    padding: 4px;
+`
+const Price = styled.p`
+    font-size: 14px;
+    font-weight: 700;
+`
+const RemoveButton = styled.button`
+    position: absolute;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 3px 5px;
+    border-radius: 50%;
+    top: -8px;
+    right: -7px;
+`
+const TotalDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 28px;
+    font-weight: 700;
+`
+const CheckoutButton = styled.button`
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 700;
+    padding: 30px 0;
+    margin-top: 40px;
+    width: 480px;
+    transform: translateX(-55px);
 `
