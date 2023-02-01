@@ -104,16 +104,20 @@ export const Product = () => {
                                 const newPrice = item.product.price * item.quantity
                                 return (
                                     <LiShopping key={index}>
-                                        <DivImg>
-                                            <img src={item.product.photo} alt={item.product.name} />
-                                        </DivImg>
-                                        <TitleProductCart>{item.product.name}</TitleProductCart>
-                                        <DivButton>
-                                            <MinusButton type="button" onClick={() => removeQuantity(item)}> - </MinusButton>
-                                            <Quantity>{item.quantity}</Quantity>
-                                            <PlusButton type="button" onClick={() => addQuantity(item)}> + </PlusButton>
-                                        </DivButton>
-                                        <Price>R$ {newPrice}</Price>
+                                        <DivDesc>
+                                            <DivImg>
+                                                <img src={item.product.photo} alt={item.product.name} />
+                                            </DivImg>
+                                            <TitleProductCart>{item.product.name}</TitleProductCart>
+                                        </DivDesc>
+                                        <DivInteractive>
+                                            <DivButton>
+                                                <MinusButton type="button" onClick={() => removeQuantity(item)}> - </MinusButton>
+                                                <Quantity>{item.quantity}</Quantity>
+                                                <PlusButton type="button" onClick={() => addQuantity(item)}> + </PlusButton>
+                                            </DivButton>
+                                            <Price>R$ {newPrice}</Price>
+                                        </DivInteractive>
                                         <RemoveButton type="button" onClick={() => removeCartProduct(item)}> X </RemoveButton>
                                     </LiShopping>
                                 )
@@ -207,6 +211,11 @@ const LiShopping = styled.li`
     height: 95px;
     border-radius: 8px;
 `
+const DivDesc = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+`
 const DivImg = styled.div`
     width: 50px;
     height: 60px;
@@ -214,6 +223,11 @@ const DivImg = styled.div`
 const TitleProductCart = styled.h2`
     font-size: 15px;
     font-weight: 400px;
+`
+const DivInteractive = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
 `
 const DivButton = styled.div`
     display: flex;
@@ -232,6 +246,7 @@ const Quantity = styled.p`
     justify-content: center;
     align-items: center;
     width: 16px;
+    padding: 0 8px;
     border: solid 1px lightgrey;
 ` 
 const PlusButton = styled.button`
