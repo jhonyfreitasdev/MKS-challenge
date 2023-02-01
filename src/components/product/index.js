@@ -26,7 +26,7 @@ export const Product = () => {
 
     const addProductInCart = product => {
         let copyShoppingList = [...shoppingList]
-        
+
         copyShoppingList = [...shoppingList, { product, quantity: 1 }]
         setShoppingList(copyShoppingList)
     }
@@ -50,16 +50,16 @@ export const Product = () => {
             if (item.product.id === itemParams.product.id) {
                 item.quantity -= 1
 
-                if (item.quantity === 0){
+                if (item.quantity === 0) {
                     removeCartProduct()
-                }else{
+                } else {
                     setShoppingList(copyShoppingList)
                 }
             }
         })
     }
 
-    const removeCartProduct = (item) =>{
+    const removeCartProduct = (item) => {
         let copyShoppingList = [...shoppingList]
         copyShoppingList.splice(copyShoppingList.indexOf(item), 1)
         setShoppingList(copyShoppingList)
@@ -69,73 +69,105 @@ export const Product = () => {
         return total + (current.product.price * current.quantity)
     }, 0)
 
-    return (
-        <Main>
-            <ul className="products-list">
-                {
-                    itemsList.items.map((item, index) => {
-                        return (
-                            <Li key={index}>
-                                <DivImageProduct>
-                                    <img src={item.photo} alt={item.name} />
-                                </DivImageProduct>
-                                <DivTitle>
-                                    <H2>{item.name}</H2>
-                                    <P>R$ {item.price}</P>
-                                </DivTitle>
-                                <Description>{item.description}</Description>
-                                <ShopButton getItem={() => addProductInCart(item)} />
-                            </Li>
-                        )
-                    })
-                }
-            </ul>
+    const [status, setStatus] = useState(true)
 
-            <SectionCart>
-                <div>
-                    <DivHeader>
-                        <TitleCart> Carrinho de compras </TitleCart>
-                        <CloseButton type="button" /*onClick={props.closeCart}*/> X </CloseButton>
-                    </DivHeader>
+    const closeCart = () => {
+        setStatus(false)
+    }
 
-                    <ul itemClass="products-list">
-                        {
-                            shoppingList.map((item, index) => {
-                                const newPrice = item.product.price * item.quantity
-                                return (
-                                    <LiShopping key={index}>
-                                        <DivDesc>
-                                            <DivImg>
-                                                <img src={item.product.photo} alt={item.product.name} />
-                                            </DivImg>
-                                            <TitleProductCart>{item.product.name}</TitleProductCart>
-                                        </DivDesc>
-                                        <DivInteractive>
-                                            <DivButton>
-                                                <MinusButton type="button" onClick={() => removeQuantity(item)}> - </MinusButton>
-                                                <Quantity>{item.quantity}</Quantity>
-                                                <PlusButton type="button" onClick={() => addQuantity(item)}> + </PlusButton>
-                                            </DivButton>
-                                            <Price>R$ {newPrice}</Price>
-                                        </DivInteractive>
-                                        <RemoveButton type="button" onClick={() => removeCartProduct(item)}> X </RemoveButton>
-                                    </LiShopping>
-                                )
-                            })
-                        }
-                    </ul>
-                </div>
-
-                <div>
-                    <TotalDiv>
-                        <p> Total: </p>
-                        <p>R$ { totalCart } </p>
-                    </TotalDiv>
-                    <CheckoutButton type="button"> Finalizar Compra </CheckoutButton>
-                </div>
-            </SectionCart>
-        </Main>
-    )
+    if (status) {
+        return (
+            <Main>
+                <ul className="products-list">
+                    {
+                        itemsList.items.map((item, index) => {
+                            return (
+                                <Li key={index}>
+                                    <DivImageProduct>
+                                        <img src={item.photo} alt={item.name} />
+                                    </DivImageProduct>
+                                    <DivTitle>
+                                        <H2>{item.name}</H2>
+                                        <P>R$ {item.price}</P>
+                                    </DivTitle>
+                                    <Description>{item.description}</Description>
+                                    <ShopButton getItem={() => addProductInCart(item)} />
+                                </Li>
+                            )
+                        })
+                    }
+                </ul>
+          </Main>
+        )
+    }else{
+        return (
+            <Main>
+                <ul className="products-list">
+                    {
+                        itemsList.items.map((item, index) => {
+                            return (
+                                <Li key={index}>
+                                    <DivImageProduct>
+                                        <img src={item.photo} alt={item.name} />
+                                    </DivImageProduct>
+                                    <DivTitle>
+                                        <H2>{item.name}</H2>
+                                        <P>R$ {item.price}</P>
+                                    </DivTitle>
+                                    <Description>{item.description}</Description>
+                                    <ShopButton getItem={() => addProductInCart(item)} />
+                                </Li>
+                            )
+                        })
+                    }
+                </ul>
+    
+                <SectionCart>
+                    <div>
+                        <DivHeader>
+                            <TitleCart> Carrinho de compras </TitleCart>
+                            <CloseButton type="button" onClick={closeCart}> X </CloseButton>
+                        </DivHeader>
+    
+                        <ul itemClass="products-list">
+                            {
+                                shoppingList.map((item, index) => {
+                                    const newPrice = item.product.price * item.quantity
+                                    return (
+                                        <LiShopping key={index}>
+                                            <DivDesc>
+                                                <DivImg>
+                                                    <img src={item.product.photo} alt={item.product.name} />
+                                                </DivImg>
+                                                <TitleProductCart>{item.product.name}</TitleProductCart>
+                                            </DivDesc>
+                                            <DivInteractive>
+                                                <DivButton>
+                                                    <MinusButton type="button" onClick={() => removeQuantity(item)}> - </MinusButton>
+                                                    <Quantity>{item.quantity}</Quantity>
+                                                    <PlusButton type="button" onClick={() => addQuantity(item)}> + </PlusButton>
+                                                </DivButton>
+                                                <Price>R$ {newPrice}</Price>
+                                            </DivInteractive>
+                                            <RemoveButton type="button" onClick={() => removeCartProduct(item)}> X </RemoveButton>
+                                        </LiShopping>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </div>
+    
+                    <div>
+                        <TotalDiv>
+                            <p> Total: </p>
+                            <p>R$ {totalCart} </p>
+                        </TotalDiv>
+                        <CheckoutButton type="button"> Finalizar Compra </CheckoutButton>
+                    </div>
+                </SectionCart>
+            </Main>
+        )
+    }
 }
 
 
@@ -248,7 +280,7 @@ const Quantity = styled.p`
     width: 16px;
     padding: 0 8px;
     border: solid 1px lightgrey;
-` 
+`
 const PlusButton = styled.button`
     display: flex;
     justify-content: center;
