@@ -219,19 +219,29 @@ const DivButton = styled.div`
     display: flex;
 `
 const MinusButton = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 16px;
     border-radius: 4px 0 0 4px;
     border: solid 1px lightgrey;
     padding: 4px;
 `
 const Quantity = styled.p`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 16px;
+    border: solid 1px lightgrey;
 ` 
 const PlusButton = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 16px;
     border-radius: 0 4px 4px 0;
     border: solid 1px lightgrey;
-    padding: 4px;
+    padding: 4px 6px;
 `
 const Price = styled.p`
     font-size: 14px;
@@ -259,7 +269,7 @@ const CheckoutButton = styled.button`
     font-size: 28px;
     font-weight: 700;
     padding: 30px 0;
-    margin-top: 40px;
+    margin-top: 30px;
     width: 480px;
     transform: translateX(-55px);
 `
