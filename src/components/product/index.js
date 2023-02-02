@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 import { getProducts } from "../../services/api-products"
 import { ShopButton } from "../shop-button"
 import { SectionCart } from "../section-cart"
+import { CartButton } from "../cart-button"
 import styled from "styled-components"
 import './products-list.css'
-import { CartButton } from "../cart-button"
+
 
 
 export const Product = () => {
@@ -120,7 +121,7 @@ export const Product = () => {
                 </ul>
 
                 <CartButton openCart={openCart}> 
-                    <img src="./images/cart.png" alt="Carrinho de compras"/>
+                     <p>🛒</p>
                     <PButtonCart> { totalQuantity } </PButtonCart>
                 </CartButton>
           </Main>
