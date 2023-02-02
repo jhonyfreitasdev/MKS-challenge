@@ -74,6 +74,10 @@ export const Product = () => {
         return total + (current.product.price * current.quantity)
     }, 0)
 
+    const totalQuantity = shoppingList.reduce((total, item) => {
+        return total + item.quantity
+    }, 0)
+
     // Estado de condição para abrir e fechar o carrinho
 
     const [status, setStatus] = useState({
@@ -117,7 +121,7 @@ export const Product = () => {
 
                 <CartButton openCart={openCart}> 
                     <img src="./images/cart.png" alt="Carrinho de compras"/>
-                    <PButtonCart> 0 </PButtonCart>
+                    <PButtonCart> { totalQuantity } </PButtonCart>
                 </CartButton>
           </Main>
         )
