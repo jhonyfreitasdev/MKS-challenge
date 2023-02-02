@@ -1,12 +1,12 @@
-import { Home } from "./pages/home";
 import { createGlobalStyle } from "styled-components";
+import { AppRoutes } from "./pages/routes";
 
 
 export const App = () => {
 	return (
 		<>
 			<GlobalStyle />
-			<Home />
+			<AppRoutes />
 		</>
 	);
 }

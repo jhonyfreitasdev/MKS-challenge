@@ -4,20 +4,20 @@ export const CartButton = (props) => {
 
     return(
         <Button type="button" onClick={props.openCart}> 
-            <img src="./images/cart.png" alt="Carrinho de compras"/>
-            <P> 0 </P>
+            {props.children}
         </Button>
     )
 }
 
 const Button = styled.button`
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
     border: none;
     padding: 15px;
-`
-const P = styled.p`
-    margin-left: 10px 
+    top: -80px; 
+    right: 40px;
+    z-index: 1;
 `
